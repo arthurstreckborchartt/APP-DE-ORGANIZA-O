@@ -7,6 +7,9 @@ export function translateAuthError(message: string): string {
   if (m.includes("password should be at least")) return "A senha precisa ter pelo menos 6 caracteres.";
   if (m.includes("unable to validate email") || m.includes("invalid email")) return "E-mail inválido.";
   if (m.includes("rate limit")) return "Muitas tentativas. Espere um pouco e tente de novo.";
+  if (m.includes("invalid path specified"))
+    return "Endereço do Supabase incorreto. No .env, use só https://SEU-PROJETO.supabase.co e reinicie o npm run dev.";
+  if (m.includes("invalid api key")) return "Chave do Supabase incorreta. Confira a VITE_SUPABASE_ANON_KEY no .env.";
   if (m.includes("failed to fetch")) return "Sem conexão com o servidor.";
   return message;
 }

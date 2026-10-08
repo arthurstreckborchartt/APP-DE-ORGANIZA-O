@@ -7,6 +7,11 @@ describe("translateAuthError", () => {
     expect(translateAuthError("User already registered")).toBe("Já existe uma conta com esse e-mail.");
   });
 
+  it("explica erros de configuração do Supabase", () => {
+    expect(translateAuthError("Invalid path specified in request URL")).toContain("Endereço do Supabase incorreto");
+    expect(translateAuthError("Invalid API key")).toContain("Chave do Supabase incorreta");
+  });
+
   it("mantém mensagens desconhecidas", () => {
     expect(translateAuthError("Algo estranho")).toBe("Algo estranho");
   });
