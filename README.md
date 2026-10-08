@@ -32,6 +32,24 @@ Funciona como site (PC e celular) e como app Android (via Capacitor), no mesmo p
 | `npm run android` | Gera o build, copia para o projeto Android e abre no Android Studio |
 | `npm run android:sync` | Só gera o build e copia para o projeto Android |
 
+## Publicar o site (Vercel)
+
+O projeto já tem `vercel.json` (build do Vite e redirecionamento das rotas para o `index.html`,
+para que links como `/contas` funcionem ao recarregar a página).
+
+1. Em [vercel.com](https://vercel.com), entre com o GitHub e clique em **Add New → Project**.
+2. Importe o repositório `APP-DE-ORGANIZA-O` (escolha a branch com o código).
+3. Em **Environment Variables**, adicione `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`
+   (os mesmos valores do `.env`).
+4. Clique em **Deploy**. Cada novo push publica uma versão nova automaticamente.
+
+Depois, no Supabase, em *Authentication → URL Configuration*, coloque o endereço da Vercel
+(ex.: `https://organiza.vercel.app`) em **Site URL** e também em **Redirect URLs**, para que o link de
+confirmação de e-mail leve de volta ao site.
+
+**Alternativa sem GitHub:** com o projeto no seu computador, rode `npx vercel` na pasta e siga as
+perguntas. Depois cadastre as duas variáveis no painel da Vercel e rode `npx vercel --prod`.
+
 ## App Android
 
 O mesmo código vira app Android com o [Capacitor](https://capacitorjs.com). O projeto nativo fica em `android/`.
