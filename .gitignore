@@ -7,3 +7,7 @@ dist
 android/app/build
 android/.gradle
 *.tsbuildinfo
+
+# backups locais
+*.bundle
+organiza-codigo.zip
