@@ -43,9 +43,10 @@ para que links como `/contas` funcionem ao recarregar a página).
    (os mesmos valores do `.env`).
 4. Clique em **Deploy**. Cada novo push publica uma versão nova automaticamente.
 
-Depois, no Supabase, em *Authentication → URL Configuration*, coloque o endereço da Vercel
-(ex.: `https://organiza.vercel.app`) em **Site URL** e também em **Redirect URLs**, para que o link de
-confirmação de e-mail leve de volta ao site.
+Depois, no Supabase, em *Authentication → URL Configuration*:
+- **Site URL:** o endereço da Vercel (ex.: `https://organiza.vercel.app`).
+- **Redirect URLs:** adicione `https://organiza.vercel.app/**` e `http://localhost:5173/**`.
+  Sem isso, o link de "Esqueci minha senha" não volta para a tela de nova senha.
 
 **Alternativa sem GitHub:** com o projeto no seu computador, rode `npx vercel` na pasta e siga as
 perguntas. Depois cadastre as duas variáveis no painel da Vercel e rode `npx vercel --prod`.
