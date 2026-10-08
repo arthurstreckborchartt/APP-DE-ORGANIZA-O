@@ -29,6 +29,39 @@ Funciona como site (PC e celular) e como app Android (via Capacitor), no mesmo p
 | `npm run dev` | Servidor de desenvolvimento |
 | `npm run build` | Checa tipos e gera a versão de produção em `dist/` |
 | `npm test` | Roda os testes (Vitest) |
+| `npm run android` | Gera o build, copia para o projeto Android e abre no Android Studio |
+| `npm run android:sync` | Só gera o build e copia para o projeto Android |
+
+## App Android
+
+O mesmo código vira app Android com o [Capacitor](https://capacitorjs.com). O projeto nativo fica em `android/`.
+
+**Pré-requisitos (uma vez só):**
+1. Instale o [Android Studio](https://developer.android.com/studio). Ele já traz o SDK e o Java.
+2. Tenha o `.env` configurado (as chaves do Supabase entram no app no momento do build).
+
+**Rodar no celular ou emulador:**
+1. `npm run android`. Isso compila o site, copia para `android/` e abre o Android Studio.
+2. No celular, ative *Opções do desenvolvedor → Depuração USB* e conecte no PC
+   (ou crie um emulador em *Device Manager*).
+3. No Android Studio, clique em ▶ *Run*.
+
+**Gerar o APK para instalar sem cabo:**
+*Build → Generate App Bundles or APKs → Generate APKs*. O arquivo sai em
+`android/app/build/outputs/apk/debug/app-debug.apk`. Mande para o celular e instale
+(o Android pede para permitir "fontes desconhecidas").
+
+**Sempre que mudar o código:** rode `npm run android:sync` (ou `npm run android`) antes de rodar de novo.
+
+**Ícone e tela de abertura:** as imagens-fonte ficam em `assets/`. Depois de trocar, rode
+`npx @capacitor/assets generate --android --iconBackgroundColor '#0b0b12' --splashBackgroundColor '#0b0b12' --splashBackgroundColorDark '#0b0b12'`.
+
+**Antes de publicar na Play Store:** troque o `appId` em `capacitor.config.ts` e o
+`applicationId` em `android/app/build.gradle` (hoje `br.com.organiza.app`). Depois de publicado, ele não muda mais.
+
+> **Confirmação de e-mail no celular:** o link de confirmação abre no navegador. Depois de confirmar,
+> volte ao app e entre normalmente. Em *Authentication → URL Configuration → Site URL* do Supabase,
+> coloque o endereço onde o site estiver publicado.
 
 ## Estrutura
 
@@ -40,6 +73,8 @@ src/
   lib/         cliente Supabase e utilitários de data
   types/       tipos das tabelas
 supabase/migrations/  SQL das tabelas e políticas RLS
+android/     projeto nativo Android (gerado pelo Capacitor)
+assets/      imagens-fonte do ícone e da tela de abertura
 ```
 
 ## Segurança
