@@ -1,6 +1,8 @@
+import { useId } from "react";
 import { motion } from "motion/react";
 
 export function ProgressRing({ value, total, size = 56 }: { value: number; total: number; size?: number }) {
+  const gradientId = useId();
   const stroke = 5;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
@@ -10,7 +12,7 @@ export function ProgressRing({ value, total, size = 56 }: { value: number; total
     <div className="relative grid place-items-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
         <defs>
-          <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="var(--color-accent)" />
             <stop offset="1" stopColor="var(--color-accent-2)" />
           </linearGradient>
@@ -21,7 +23,7 @@ export function ProgressRing({ value, total, size = 56 }: { value: number; total
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="url(#ring)"
+          stroke={`url(#${gradientId})`}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={c}
